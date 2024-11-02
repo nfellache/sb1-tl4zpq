@@ -1,0 +1,88 @@
+---
+interface Props {
+    title: string;
+    description: string;
+    posts: {
+        title: string;
+        description: string;
+        slug: string;
+    }[];
+}
+
+const { title, description, posts } = Astro.props;
+---
+
+<div class="blog-category">
+    <h3>{title}</h3>
+    <p class="category-description">{description}</p>
+    <div class="post-list">
+        {posts.map(post => (
+            <a href={`/blog/${post.slug}`} class="post-link">
+                <h4>{post.title}</h4>
+                <p>{post.description}</p>
+                <span class="read-more">Read More →</span>
+            </a>
+        ))}
+    </div>
+</div>
+
+<style>
+    .blog-category {
+        margin-bottom: 3rem;
+        background: white;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+    h3 {
+        color: #5F5FFF;
+        font-size: 1.75rem;
+        margin-bottom: 1rem;
+        font-weight: 600;
+    }
+    .category-description {
+        color: #4b5563;
+        margin-bottom: 2rem;
+        font-size: 1.125rem;
+        line-height: 1.6;
+    }
+    .post-list {
+        display: grid;
+        gap: 1.5rem;
+    }
+    .post-link {
+        padding: 1.5rem;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    .post-link:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 12px rgba(95, 95, 255, 0.1);
+        border-color: #5F5FFF;
+    }
+    h4 {
+        color: #5F5FFF;
+        margin: 0 0 1rem 0;
+        font-size: 1.25rem;
+        font-weight: 600;
+    }
+    p {
+        color: #4b5563;
+        margin: 0 0 1.5rem 0;
+        line-height: 1.6;
+    }
+    .read-more {
+        color: #5F5FFF;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: gap 0.2s ease;
+    }
+    .post-link:hover .read-more {
+        gap: 0.75rem;
+    }
+</style>

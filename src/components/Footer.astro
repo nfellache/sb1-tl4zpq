@@ -1,0 +1,127 @@
+---
+const currentYear = new Date().getFullYear();
+
+const footerLinks = {
+    "Resources": [
+        { title: "Manufacturing SOPs", path: "/blog/category/manufacturing" },
+        { title: "Quality Control", path: "/blog/category/quality" },
+        { title: "Regulatory Compliance", path: "/blog/category/regulatory" },
+        { title: "Training Resources", path: "/blog/category/training" }
+    ],
+    "Company": [
+        { title: "About Us", path: "https://speach.me/who-we-are" },
+        { title: "Contact", path: "https://speach.me/demo" },
+        { title: "Privacy Policy", path: "https://speach.me/privacy-policy" },
+        { title: "Terms of Service", path: "https://speach.me/terms-of-use" }
+    ]
+};
+---
+
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-links">
+                {Object.entries(footerLinks).map(([category, links]) => (
+                    <div class="footer-section">
+                        <h3>{category}</h3>
+                        <ul>
+                            {links.map(link => (
+                                <li>
+                                    <a href={link.path} target={link.path.startsWith('http') ? '_blank' : undefined} rel={link.path.startsWith('http') ? 'noopener noreferrer' : undefined}>
+                                        {link.title}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                ))}
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="copyright">© {currentYear} SOPs in Pharma. All rights reserved.</p>
+            <p class="powered-by">
+                <a href="https://speach.me" target="_blank" rel="noopener noreferrer">
+                    Powered by Speach
+                </a>
+            </p>
+        </div>
+    </div>
+</footer>
+
+<style>
+    .site-footer {
+        background: white;
+        padding: 4rem 0 2rem;
+        border-top: 1px solid rgba(95, 95, 255, 0.1);
+    }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+    .footer-content {
+        margin-bottom: 3rem;
+    }
+    .footer-links {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+    }
+    .footer-section h3 {
+        color: #5F5FFF;
+        font-size: 1.125rem;
+        margin-bottom: 1rem;
+        font-weight: 600;
+    }
+    .footer-section ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .footer-section li {
+        margin-bottom: 0.75rem;
+    }
+    .footer-section a {
+        color: #4b5563;
+        text-decoration: none;
+        transition: color 0.2s ease;
+        font-size: 0.95rem;
+    }
+    .footer-section a:hover {
+        color: #5F5FFF;
+    }
+    .footer-bottom {
+        padding-top: 2rem;
+        border-top: 1px solid rgba(95, 95, 255, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    .copyright, .powered-by {
+        color: #6b7280;
+        font-size: 0.875rem;
+        margin: 0;
+    }
+    .powered-by a {
+        color: #5F5FFF;
+        text-decoration: none;
+        font-weight: 500;
+        transition: opacity 0.2s ease;
+    }
+    .powered-by a:hover {
+        opacity: 0.8;
+    }
+
+    @media (max-width: 768px) {
+        .site-footer {
+            padding: 3rem 0 1.5rem;
+        }
+        .footer-bottom {
+            flex-direction: column;
+            text-align: center;
+            gap: 0.5rem;
+        }
+    }
+</style>

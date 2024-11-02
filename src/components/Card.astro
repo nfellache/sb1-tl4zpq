@@ -1,0 +1,41 @@
+---
+interface Props {
+	title: string;
+	description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<div class="sop-card">
+	<h3>{title}</h3>
+	<p>{description}</p>
+</div>
+
+<style>
+	.sop-card {
+		padding: 1.5rem;
+		background-color: white;
+		border-radius: 12px;
+		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+		margin-bottom: 1rem;
+		border: 1px solid #f1f5f9;
+		transition: all 0.3s ease;
+	}
+	.sop-card:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 8px 12px rgba(95, 95, 255, 0.1);
+		border-color: rgba(95, 95, 255, 0.2);
+	}
+	h3 {
+		color: #5F5FFF;
+		font-size: 1.25rem;
+		margin: 0 0 0.75rem 0;
+		font-weight: 600;
+	}
+	p {
+		margin: 0;
+		color: #4b5563;
+		line-height: 1.6;
+	}
+</style></content>

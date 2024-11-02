@@ -1,0 +1,73 @@
+---
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+    category?: string;
+    limit?: number;
+}
+
+const { category, limit } = Astro.props;
+const posts = await getCollection('blog');
+const filteredPosts = category 
+    ? posts.filter(post => post.data.category === category)
+    : posts;
+const displayPosts = limit 
+    ? filteredPosts.slice(0, limit) 
+    : filteredPosts;
+---
+
+<div class="blog-list">
+    {displayPosts.map((post) => (
+        <a href={`/blog/${post.slug}`} class="blog-card">
+            <h3>{post.data.title}</h3>
+            <p>{post.data.description}</p>
+            <div class="tags">
+                {post.data.tags.map(tag => (
+                    <span class="tag">{tag}</span>
+                ))}
+            </div>
+        </a>
+    ))}
+</div>
+
+<style>
+    .blog-list {
+        display: grid;
+        gap: 1.5rem;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+    .blog-card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        text-decoration: none;
+        transition: transform 0.2s ease;
+    }
+    .blog-card:hover {
+        transform: translateY(-2px);
+    }
+    h3 {
+        color: rgb(var(--primary));
+        margin: 0 0 1rem 0;
+        font-size: 1.25rem;
+    }
+    p {
+        color: #4b5563;
+        margin: 0 0 1rem 0;
+        line-height: 1.5;
+    }
+    .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    .tag {
+        background: rgba(var(--primary), 0.1);
+        color: rgb(var(--primary));
+        padding: 0.25rem 0.75rem;
+        border-radius: 999px;
+        font-size: 0.875rem;
+    }
+</style>

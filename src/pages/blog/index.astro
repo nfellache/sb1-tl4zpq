@@ -1,0 +1,58 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import BlogList from '../../components/BlogList.astro';
+
+const title = "SOPs in Pharma Blog | Comprehensive Guides & Resources";
+const description = "Expert articles and guides on Standard Operating Procedures (SOPs) in pharmaceutical manufacturing, quality control, and compliance.";
+---
+
+<Layout title={title} description={description}>
+    <main>
+        <h1>SOPs in Pharma Resources</h1>
+        <p class="lead">Expert guides and articles on pharmaceutical Standard Operating Procedures</p>
+        
+        <section class="categories">
+            <h2>Manufacturing SOPs</h2>
+            <BlogList category="Manufacturing" />
+            
+            <h2>Quality Control SOPs</h2>
+            <BlogList category="Quality" />
+            
+            <h2>Regulatory Compliance</h2>
+            <BlogList category="Regulatory" />
+            
+            <h2>Training Resources</h2>
+            <BlogList category="Training" />
+        </section>
+    </main>
+</Layout>
+
+<style>
+    main {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+    h1 {
+        color: rgb(var(--primary));
+        font-size: 2.5rem;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+    .lead {
+        text-align: center;
+        color: #4b5563;
+        font-size: 1.25rem;
+        margin-bottom: 3rem;
+    }
+    .categories {
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+    }
+    h2 {
+        color: rgb(var(--primary));
+        font-size: 1.875rem;
+        margin-bottom: 1.5rem;
+    }
+</style>

@@ -1,0 +1,214 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import BlogCategory from '../components/BlogCategory.astro';
+import { getCollection } from 'astro:content';
+
+const siteName = "sops-in-pharma.com";
+
+// Get all blog posts
+const allPosts = await getCollection('blog');
+
+// Group posts by category
+const categories = {
+    Manufacturing: {
+        title: "Manufacturing SOPs",
+        description: "Comprehensive guides for pharmaceutical manufacturing procedures",
+        posts: allPosts.filter(post => post.data.category === "Manufacturing")
+            .map(post => ({
+                title: post.data.title,
+                description: post.data.description,
+                slug: post.slug
+            }))
+    },
+    Quality: {
+        title: "Quality Control SOPs",
+        description: "Essential procedures for pharmaceutical quality control",
+        posts: allPosts.filter(post => post.data.category === "Quality")
+            .map(post => ({
+                title: post.data.title,
+                description: post.data.description,
+                slug: post.slug
+            }))
+    },
+    Regulatory: {
+        title: "Regulatory Compliance",
+        description: "Guidelines for maintaining regulatory compliance",
+        posts: allPosts.filter(post => post.data.category === "Regulatory")
+            .map(post => ({
+                title: post.data.title,
+                description: post.data.description,
+                slug: post.slug
+            }))
+    },
+    Training: {
+        title: "Training Resources",
+        description: "SOP training guides and best practices",
+        posts: allPosts.filter(post => post.data.category === "Training")
+            .map(post => ({
+                title: post.data.title,
+                description: post.data.description,
+                slug: post.slug
+            }))
+    }
+};
+---
+
+<Layout 
+    title="SOPs in Pharma | Complete Guide to Pharmaceutical Standard Operating Procedures"
+    description={`Welcome to ${siteName} - Your comprehensive resource for Standard Operating Procedures in the pharmaceutical industry. Expert guides on SOPs in pharma manufacturing, compliance, and quality control.`}
+>
+    <main>
+        <div class="hero">
+            <h1>SOPs in Pharma</h1>
+            <p class="subtitle">Complete Guide to Pharmaceutical Procedures</p>
+            <p class="lead">
+                Your trusted resource for pharmaceutical Standard Operating Procedures. 
+                Our comprehensive guides ensure consistency and excellence in pharmaceutical 
+                manufacturing and operations.
+            </p>
+        </div>
+
+        <section class="speach-section">
+            <div class="speach-content">
+                <div class="speach-text">
+                    <h2>Transform Your SOP Training with GMP-Compliant Speach.me</h2>
+                </div>
+                <div class="speach-cta">
+                    <a href="https://speach.me/demo" class="demo-button" target="_blank" rel="noopener noreferrer">
+                        Request a Demo
+                        <span class="arrow">→</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="blog-categories">
+            <div class="container">
+                <h2 class="section-title">SOP Resources & Guides</h2>
+                <div class="categories-grid">
+                    {Object.values(categories).map(category => (
+                        <BlogCategory 
+                            title={category.title}
+                            description={category.description}
+                            posts={category.posts}
+                        />
+                    ))}
+                </div>
+            </div>
+        </section>
+    </main>
+</Layout>
+
+<style>
+    .hero {
+        background: linear-gradient(135deg, #5F5FFF 0%, #9292FF 100%);
+        color: white;
+        padding: 6rem 2rem;
+        text-align: center;
+        margin-bottom: 4rem;
+    }
+    h1 {
+        font-size: 4rem;
+        font-weight: 700;
+        line-height: 1.1;
+        margin: 0;
+        background: linear-gradient(to right, #fff, rgba(255,255,255,0.8));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .subtitle {
+        font-size: 2rem;
+        margin: 1.5rem 0;
+        opacity: 0.9;
+    }
+    .lead {
+        font-size: 1.25rem;
+        line-height: 1.6;
+        max-width: 800px;
+        margin: 1.5rem auto;
+        opacity: 0.8;
+    }
+    .speach-section {
+        background: white;
+        padding: 3rem 2rem;
+        margin: 0 auto 4rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+    .speach-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 3rem;
+    }
+    .speach-text h2 {
+        color: #5F5FFF;
+        font-size: 2.5rem;
+        margin: 0;
+        line-height: 1.2;
+    }
+    .demo-button {
+        display: inline-flex;
+        align-items: center;
+        background: #5F5FFF;
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        gap: 0.5rem;
+        white-space: nowrap;
+    }
+    .demo-button:hover {
+        background: #4F4FFF;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 12px rgba(95, 95, 255, 0.2);
+    }
+    .arrow {
+        transition: transform 0.2s ease;
+    }
+    .demo-button:hover .arrow {
+        transform: translateX(4px);
+    }
+    .blog-categories {
+        padding: 6rem 0;
+        background: #f8fafc;
+    }
+    .section-title {
+        color: #5F5FFF;
+        font-size: 2.5rem;
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+    .categories-grid {
+        display: grid;
+        gap: 2rem;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 1024px) {
+        .categories-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 768px) {
+        h1 {
+            font-size: 3rem;
+        }
+        .subtitle {
+            font-size: 1.5rem;
+        }
+        .speach-content {
+            flex-direction: column;
+            text-align: center;
+            gap: 2rem;
+        }
+        .speach-text h2 {
+            font-size: 2rem;
+        }
+    }
+</style>

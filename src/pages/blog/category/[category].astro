@@ -1,0 +1,53 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import BlogList from '../../../components/BlogList.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+    const posts = await getCollection('blog');
+    const categories = [...new Set(posts.map(post => post.data.category))];
+    
+    return categories.map(category => ({
+        params: { category: category.toLowerCase() },
+        props: { category },
+    }));
+}
+
+const { category } = Astro.props;
+const title = `${category} SOPs in Pharma | Expert Guides`;
+const description = `Comprehensive guides and articles about ${category} Standard Operating Procedures in the pharmaceutical industry.`;
+---
+
+<Layout title={title} description={description}>
+    <main>
+        <h1>{category} SOPs in Pharma</h1>
+        <p class="lead">Expert guides and resources for {category.toLowerCase()} Standard Operating Procedures</p>
+        
+        <section class="blog-posts">
+            <BlogList category={category} />
+        </section>
+    </main>
+</Layout>
+
+<style>
+    main {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+    h1 {
+        color: rgb(var(--primary));
+        font-size: 2.5rem;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+    .lead {
+        text-align: center;
+        color: #4b5563;
+        font-size: 1.25rem;
+        margin-bottom: 3rem;
+    }
+    .blog-posts {
+        margin-top: 2rem;
+    }
+</style>
